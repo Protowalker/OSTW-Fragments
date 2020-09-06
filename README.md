@@ -9,7 +9,7 @@ Code here should be
 
 ## Macros
 ### Single-action Smoothstep
-```
+```cs
 //edge0 is the point or value this will return at t=0
 //edge1 is the point or value this will return at t=1
 //t is a number between 0 and 1
@@ -18,8 +18,10 @@ define SmoothStep(define edge0, define edge1, define t): edge0 + (t*t*(3-(2*t)))
 ```
 **Submitted by Protowalker**
 
+---
+
 ### Single-action 2-point Bezier Curve
-```
+```cs
 //p0-4 are the points that define the bezier path
 //t is a number between 0 and 1
 //Will follow a defined curve. The best way to generate these curves is via this desmos graph
@@ -27,3 +29,5 @@ define SmoothStep(define edge0, define edge1, define t): edge0 + (t*t*(3-(2*t)))
 define BezierPathCalculation(Vector p0, Vector p1, Vector p2, Vector p3, define t): ((1-t)^3)*p0 + (3*(1-t)^2)*t*p1 + (3*(1-t)*(t^2)*p2) + (t^3)*p3;
 ```
 **Submitted by Protowalker**
+
+---
