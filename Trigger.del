@@ -1,0 +1,28 @@
+class Trigger {
+    //private variable that determines whether or not the Trigger was fired this frame
+    define isActive = false;
+
+    //public read-only wrapper for isActive
+    public define IsActive: isActive;
+
+    
+    //public wrapper for _Activate that calls it asynchronously, so as to use Start Rule instead of Call Subroutine
+    public void Activate(){
+        async! _Activate();
+    }
+    
+    //private subroutine that activates the trigger for exactly one tick
+    private void _Activate() "Activate Subroutine" {
+        isActive = true;
+        MinWait();
+        isActive = false;
+    }
+}
+
+
+
+//Example usage:
+//A library that wants to handle certain scenarios itself, but also wants users of the library to hook into these events.
+//In this case, the library can make a publicly addressable trigger that gets called with that event. For users to latch onto it,
+//they simply need to check if trigger.IsActive in a condition.
+//This also allows the creator of the library to control the order of execution.
