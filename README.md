@@ -16,7 +16,7 @@ Code here should be
 //Follows a sigmoid curve
 define SmoothStep(define edge0, define edge1, define t): edge0 + (t*t*(3-(2*t)))*edge1;
 ```
-Submitted by Protowalker
+**Submitted by Protowalker**
 
 ### Single-action 2-point Bezier Curve
 ```
@@ -26,4 +26,4 @@ Submitted by Protowalker
 //https://www.desmos.com/calculator/i5yegnlzrs
 define BezierPathCalculation(Vector p0, Vector p1, Vector p2, Vector p3, define t): ((1-t)^3)*p0 + (3*(1-t)^2)*t*p1 + (3*(1-t)*(t^2)*p2) + (t^3)*p3;
 ```
-Submitted by Protowalker
+**Submitted by Protowalker**
