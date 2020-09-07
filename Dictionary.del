@@ -1,0 +1,20 @@
+//Submitted by Protowalker
+struct Dictionary {
+    private define keys = [];
+    private define values = [];
+    
+    public define Of(define key): values[IndexOfArrayValue(keys, key)];
+
+    public define Count: CountOf(values);
+
+    public define Push(ref define key, ref define value) {
+        if(ArrayContains(keys, key)) return false;
+        keys = Append(keys, key);
+        values = Append(values, value);
+        return true;
+    } 
+}
+
+//Example Usage: a dictionary of users to their data
+//dict.push(EventPlayer(), someValue)
+//BigMessage(dict.Of(EventPlayer()))
