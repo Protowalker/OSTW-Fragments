@@ -8,7 +8,7 @@ struct Trigger {
 
     //public read-only wrapper for isActive
     public define IsActive: isActive;
-    public void Activate(ref define _args) "Activate"{
+    public void Activate(define _args) "Activate"{
         args = _args;
         isActive = true;
         MinWait();
