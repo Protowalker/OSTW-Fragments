@@ -14,7 +14,7 @@ Code here should be
 //edge1 is the point or value this will return at t=1
 //t is a number between 0 and 1
 //Follows a sigmoid curve
-define SmoothStep(define edge0, define edge1, define t): edge0 + (t*t*(3-(2*t)))*edge1;
+define SmoothStep(define edge0, define edge1, define t): edge0 + ((t^2)*(3-(2*t)))*edge1;
 ```
 **Submitted by Protowalker**
 
