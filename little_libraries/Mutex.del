@@ -1,0 +1,72 @@
+import "Lists.del";
+
+struct Mutex {
+    protected define isLocked;
+    protected define safe_object;
+    protected Queue waiters;
+    protected define id = 2;
+
+    public Mutex(ref define _object) {
+        safe_object = _object;
+    }
+
+    public LockedMutex Lock() {
+        if(isLocked){
+            define my_id = id;
+            id++;
+            waiters.Push(my_id);
+            while(waiters.Next != my_id) {
+                MinWait();
+            }
+            while(isLocked){
+                MinWait();
+            }
+            isLocked = true;
+            waiters.Pop();
+        }
+        return _Lock();
+    }
+
+    private define _Lock() "[Mutex] _Lock" {
+        isLocked = true;
+        LockedMutex mutex = this;
+        mutex.object = safe_object;
+        return mutex;
+    }
+}
+
+
+struct LockedMutex : Mutex {
+    public define object;
+
+    public void Unlock() "[LockedMutex] Unlock()"{
+        safe_object = object;
+        isLocked = false;
+    }
+}
+
+
+playervar Mutex dataLock = new Mutex(Vector(1,1,1));
+rule: "Mutex Example"
+Event.OngoingPlayer
+if(HasSpawned(EventPlayer()))
+{
+    LockedMutex data = dataLock.Lock();
+    for(define i = 0; i < 20; i++) {
+        data.object += Vector(RandomInteger(0,5),RandomInteger(0,5),RandomInteger(0,5));
+        Wait(0.5);
+    }
+    data.Unlock();
+}
+
+
+rule: "Mutex Wait Example"
+Event.OngoingPlayer
+if(HasSpawned(EventPlayer()))
+{
+    Wait(1);
+    LockedMutex data = dataLock.Lock();
+    BigMessage(EventPlayer(), data.object);
+    Wait(1);
+    data.Unlock();
+}
