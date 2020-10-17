@@ -1,0 +1,89 @@
+//First In, First Out
+struct Queue : CheckedArray {
+
+    define start_index = 0;
+    public override define Next: list[start_index];
+
+
+    public Queue(define[] start = [], define starting_capacity = 100) {
+        this.list = start;
+        length = CountOf(start);
+        list[starting_capacity] = 0;
+    }
+
+    public override define Push(define item) "[Queue] Push Item" {
+        if(length >= 1000) {
+            return false;
+        } else {
+            list[(start_index + length)%1000] = item;
+            length++;
+            return true;
+        }
+    }
+
+    public override define Pop() "[Queue] pop item" {
+        return list[start_index];
+        start_index++;
+        length--;
+    }
+}
+
+
+//Normal array, checks if list is too big to push to. Last In, First Out
+struct CheckedArray {
+    protected define list = [];
+    public define List: list;
+
+    protected define length = 0;
+
+    public virtual define Next: list[length-1];
+    public virtual define Count: length;
+
+
+    public CheckedArray(define[] start = [], define starting_capacity = 100) {
+        this.list = start;
+        length = CountOf(start);
+        list[starting_capacity] = 0;
+    }
+
+    ///returns a boolean. True if push succeeded, false if it failed due to size.
+    public virtual define Push(define item) "[CheckedArray] push item" {
+        if(length >= 1000) {
+            return false;
+        }
+        else {
+            list[length] = item;
+            length++;
+            return true;
+        }
+    }
+    
+    //returns the item taken from the list
+    public virtual define Pop() "[CheckedArray] pop item" {
+        length--;
+        return list[length];
+    }
+}
+
+//A set has unique entries.
+struct Set : CheckedArray {
+    
+
+    public Set(ref define[] start = [], ref define starting_capacity = 100) {
+        this.list = start;
+        length = CountOf(start);
+        list[starting_capacity] = 0;
+    }
+
+    //returns false if it has too many entries or item already exists in list. Otherwise, pushes and returns true.
+    public override define Push(define item) "[Set] push item" {
+        if(ArrayContains(list, item) || length >= 1000) {
+            return false;
+        }
+        else {
+            list[length] = item;
+            length++;
+            return true;
+        }
+    }
+}
