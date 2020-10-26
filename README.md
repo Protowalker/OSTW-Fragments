@@ -31,3 +31,17 @@ define BezierPathCalculation(Vector p0, Vector p1, Vector p2, Vector p3, define 
 **Submitted by Protowalker**
 
 ---
+
+### Screen Space to World Space macro
+```cs
+Vector UpAxis(Vector zAxis): DirectionFromAngles(HorizontalAngleFromDirection(zAxis), VerticalAngleFromDirection(zAxis) - 90);
+
+Vector RightAxis(Vector zAxis): CrossProduct(zAxis, UpAxis(zAxis));
+
+Vector ScreenToWorldForPlayer(define player, define x, define y): ScreenToWorld(EyePosition(player), FacingDirectionOf(player), x, y);
+Vector ScreenToWorld(Vector position, Vector zAxis, define x, define y): position + 100 *(x*RightAxis(zAxis) + (y-0.2)*UpAxis(zAxis) + 3*zAxis);
+```
+
+By passing a player and a position on the screen (x is to the right, y is up), you can draw an in-world text at a position on the screen.
+**Submitted by Protowalker. Credit to Josbird**
+
