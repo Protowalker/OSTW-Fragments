@@ -15,11 +15,11 @@ struct Mutex {
             define my_id = id;
             id++;
             waiters.Push(my_id);
-            while(waiters.Next != my_id) {
-                MinWait();
+            if(waiters.Next != my_id) {
+                WaitUntil(waiters.Next == my_id);
             }
-            while(isLocked){
-                MinWait();
+            if(isLocked){
+                WaitUntil(!isLocked);
             }
             isLocked = true;
             waiters.Pop();
